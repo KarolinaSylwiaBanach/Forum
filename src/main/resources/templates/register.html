@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="layout :: head">
+</head>
+<body>
+<div th:include="layout :: navigationPanel"></div>
+
+<div class="content justify-center mt-4 mx-4 bg-orange mb-0 text-white">
+    <div th:if="${userExistMessage != NULL}" class="alert alert-danger alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <div th:text="${userExistMessage}"></div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <h1 class="h2 mb-4 font-weight-normal">Rejestracja:</h1>
+            <form th:action="@{/register}" class="mx-3" method="POST" th:object="${user}">
+                <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                <input type="text" class="form-control mb-2" th:field="*{name}" placeholder="Imię"/>
+                <div class="text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></div>
+                <input type="text" class="form-control mb-2" th:field="*{surname}" placeholder="Nazwisko"/>
+                <div class="text-danger" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+                <input type="text" class="form-control mb-2" th:field="*{login}" placeholder="Login"/>
+                <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                <input type="password" class="form-control mb-2" th:field="*{password}" placeholder="Hasło"/>
+                <button class="btn btn-primary float-right" type="submit">Zarejestruj się</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

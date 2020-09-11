@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head th:include="layout :: head">
+    </head>
+    <body>
+        <div th:include="layout :: navigationPanel"></div>
+<!--        <h1 th:text="'Witaj ' +${user.name} + ' ' + ${user.surname}"></h1>-->
+
+        <div class="content  justify-center mt-4 mx-4 bg-orange mb-0 text-white">
+            <div th:if="${message != NULL}" class="alert alert-success alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <div th:text="${message}"></div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-7">
+                    <h1 class="h2 mb-4 font-weight-normal">Twoje dane:</h1>
+                    <div class="row">
+                        <div class="col-4">Imie:</div>
+                        <div class="col-8" th:text="${user.name}"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">Nazwisko:</div>
+                        <div class="col-8" th:text="${user.surname}"></div>
+                    </div>
+                    <a class="btn btn-primary float-right ml-1" th:href="@{/edition?id=__${user.userid}__}" role="button" aria-pressed="true">Edytuj</a>
+                    <a class="btn btn-danger float-right" th:href="@{/delete?id=__${user.userid}__}" role="button" aria-pressed="true">Usuń</a>
+<!--                    <form th:action="@{/login}" class="mx-3" method="POST">-->
+<!--                        <input type="text" class="form-control mb-2" name="login" placeholder="Login"/>-->
+<!--                        <input type="password" class="form-control mb-2" name="passwd" placeholder="Hasło"/>-->
+<!--                        <button class="btn btn-primary float-right" type="submit">Zaloguj się</button>-->
+<!--                    </form>-->
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

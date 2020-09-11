@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="layout :: head">
+</head>
+<body>
+<div th:include="layout :: navigationPanel"></div>
+<!--        <h1 th:text="'Witaj ' +${user.name} + ' ' + ${user.surname}"></h1>-->
+<div class="content justify-center mt-4 mx-4 bg-orange mb-0 text-white">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <h1 class="h2 mb-4 font-weight-normal">Wprowadź nowe dane:</h1>
+            <form th:action="@{/edition}" class="mx-3" method="POST" th:object="${user}">
+                <div class="row mb-2">
+                    <div class="col-3 align-items-center"></div>
+                    <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-3 align-items-center">Imie:</div>
+                    <input type="text" class="form-control col-9 " th:field="*{name}"/>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-3 align-items-center"></div>
+                    <div class="text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-3 align-items-center">Nazwisko:</div>
+                    <input type="text" class="form-control  col-9" th:field="*{surname}"/>
+                </div>
+                <button class="btn btn-primary float-right ml-1" type="submit">Edytuj</button>
+                <a class="btn btn-secondary float-right" th:href="@{/profile}" role="button" aria-pressed="true"> <
+                    Wróć</a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:include="layout :: head">
+</head>
+<body>
+<div th:include="layout :: navigationPanel"></div>
+<div class="content justify-center mt-4 mx-4 bg-orange mb-0 text-white">
+    <h1 class="h2 mb-4 font-weight-normal">Forum:</h1>
+    <div th:if="${message != NULL}" class="alert alert-success alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <div th:text="${message}"></div>
+    </div>
+    <div th:if="${messageError != NULL}" class="alert alert-danger alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <div th:text="${messageError}"></div>
+    </div>
+
+    <div class="content justify-center mx-1 mb-2" th:each="post: ${postsList}">
+        <div class="row justify-content-center ">
+            <div class="col-10 py-3 pr-3 bg-light text-dark" style="overflow-y: auto; white-space: pre-line" th:text="${post.content}">
+
+            </div>
+            <div class="col-2 py-3 pl-3 y bg-info text-white">
+                <div th:switch="${post.user}">
+                    <div th:case="NULL">Użytkownik został skasowany</div>
+                    <div th:case="*" th:text="${post.user.login}"></div>
+                </div>
+                <div class="small" th:inline="text" >
+                    [[${#dates.format(post.createdAt, 'dd-MM-yyyy HH:mm')}]]
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content justify-center mx-1 mb-2" sec:authorize="isAuthenticated()" th:object="${post}">
+        <form class="row justify-content-center " method="POST" th:action="@{/post}">
+            <div class="col-12 py-3 pr-3 bg-orange text-dark">
+                <textarea class="form-control" rows="5" id="content" th:field="*{content}"></textarea>
+                <button class="btn btn-success" type="submit">Dodaj post</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
